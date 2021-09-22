@@ -1,0 +1,15 @@
+if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Breach Charge") then
+    game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Breach Charge").Parent = game:GetService("Players").LocalPlayer.Character
+end
+wait()
+for i,v in pairs(game:GetService("Workspace").Map:GetDescendants()) do
+    if v:IsA("BasePart") then
+        wait()
+        local args = {
+            [1] = v.CFrame,
+            [2] = v
+        }
+        
+        game:GetService("Players").LocalPlayer.Character:FindFirstChild("Breach Charge").RemoteEvent:FireServer(unpack(args))
+    end
+end

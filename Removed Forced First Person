@@ -1,0 +1,16 @@
+local function removefp()
+    for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Equipped:Connect(function()
+                wait(.1)
+                game.Players.LocalPlayer.CameraMode = Enum.CameraMode.Classic
+            end)
+        end
+    end
+end
+
+removefp()
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+    removefp()
+end)

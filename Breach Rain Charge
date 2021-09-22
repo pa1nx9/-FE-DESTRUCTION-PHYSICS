@@ -1,0 +1,9 @@
+while game:GetService("RunService").Heartbeat:wait() do
+local part = game.Workspace.Map:FindFirstChildOfClass("BasePart",true)
+    local a,b,c = math.random(-400,400),math.random(0,50),math.random(-400,400)
+    local args = {
+            [1] = CFrame.new(a,b,c),
+            [2] = part
+            }
+        game:GetService("Players").LocalPlayer.Character:FindFirstChild("Breach Charge").RemoteEvent:FireServer(unpack(args))
+        end

@@ -1,0 +1,42 @@
+getgenv().target = "target name (shortenable)"
+
+
+
+if not getgenv().alreadyrun == true then
+    getgenv().alreadyrun = true
+    
+    game:GetService("ReplicatedStorage").VR.Start:InvokeServer()
+    
+    repeat wait() until game:GetService("ReplicatedStorage").VR.Start:InvokeServer() == nil
+    
+    workspace.Camera.CameraSubject = workspace[game.Players.LocalPlayer.Name].Head
+    
+    --local currentCFrame = game.Players.LocalPlayer.Character:WaitForChild("Head",9e9).CFrame
+    
+    local function move(cf)
+        game:GetService("ReplicatedStorage").VR.MoveHead:FireServer(cf)
+    end
+    
+    local function findplr(plr)
+      for i,v in pairs(game.Players:GetPlayers()) do
+          if v.DisplayName:lower():find(plr:lower()) or v.Name:lower():find(plr:lower()) then
+                return v
+          end
+      end
+      return game.Players.LocalPlayer
+    end
+    
+    
+    while game:GetService("RunService").Heartbeat:wait() do
+        pcall(function()
+            local target = findplr(getgenv().target)
+            if workspace:FindFirstChild(target.Name) then -- for some reason indexing player.Character didnt work
+                if workspace[target.Name]:FindFirstChild("Head") then
+                    move(workspace[target.Name].Head.CFrame + Vector3.new(0,11.5,0))
+                end
+            end
+        end)
+    end
+else
+    warn("already ran")
+end

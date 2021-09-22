@@ -1,0 +1,30 @@
+--[[
+Step 1) run this script until all your limbs are heavily damaged
+Step 2) wait for the map to reset
+Step 3) you should now be invisible from your head down
+--]]
+
+if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sledge") then
+    game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Sledge").Parent = game:GetService("Players").LocalPlayer.Character
+end
+local args = {
+    [1] = true
+}
+
+game:GetService("ReplicatedStorage").PVP:FireServer(unpack(args))
+
+wait(.5)
+for i = 1,10 do
+    wait()
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("BasePart") and v.Name ~= "Head" then
+            local args = {
+                [1] = 2, 
+                [2] = v.Position, --+ Vector3.new(math.random(-200,200)/100,math.random(-200,200)/100,math.random(-200,200)/100),
+                [3] = v,                    
+                [4] = 9e9
+            }
+            game:GetService("Players").LocalPlayer.Character.Sledge.RemoteFunction:InvokeServer(unpack(args))
+        end
+    end
+end
